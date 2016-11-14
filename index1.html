@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Orphanage</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script  src="validate.js"></script>
+	<script>
+	
+	$(document).ready(function(){
+		$("#searchButtonTest").click(function(){
+			$("#hidden_val").slideToggle("slow");
+		});
+		
+		 $("#viewItems").click(function(){
+      // $("#myModal5").modal();
+		});
+   
+		$("#volunteer").click(function(){
+		  // $("#myModal6").modal();
+	   });
+	});
+	
+	function ajaxFunction(cityName)   //functionName could be anything
+{
+	//1. Create XmlHttpRequest Object
+	//This could be written into an external .js file that could be used within other pages as well.
+	var xmlHttp;
+   
+	try     // Firefox, Opera 8.0+, Safari
+	{
+		xmlHttp=new XMLHttpRequest();
+	}
+	catch (e)
+	{
+		try  // Internet Explorer
+		{
+			xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+		}
+		catch (e)
+		{
+			try
+			{
+				xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch (e)
+			{
+				alert("Your browser does not support AJAX!");
+				return false;
+			}
+		}
+	}
+	
+	//2. Call the server-side script
+	//cityName is the function parameter passed when the JS function is called
+	xmlHttp.open("GET", "cities.jsp?q=" + cityName, true);   //q is the name of the parameter to be used in JSP
+	xmlHttp.send();   //leave blank, or pass null. Not used with GET requests
+
+	
+	//3. Check the server-data is ready
+	xmlHttp.onreadystatechange=function()
+	{
+		if(xmlHttp.readyState==4)
+		{
+			//4. Manipulate the DOM
+			var cityDiv = document.getElementById("cityDiv");
+			var serverData = xmlHttp.responseText;
+			cityDiv.innerHTML = serverData;
+		}
+	}
+
+}
+
+	
+/*	$(document).ready(function(){
+   $("#viewItems").click(function(){
+   alert("hi");
+       $("#myModal5").modal();
+   });
+});*/
+	
+	</script>
+	<style>
+
+	.dropdown-menu li a {
+	background : black;
+	color : white;
+	}
+
+  .carousel-inner > .item > img{
+	width:100%;
+	height:50%;
+  }
+  
+  .carousel-inner > .item > a > img {
+    margin: auto;
+  }
+  
+  div .carousel-inner {
+  	width:100%;
+	height:50%;
+  }
+
+  div.scroll {
+
+    overflow: scroll;
+	height:400px;
+}
+
+#hidden_val {
+    padding: 50px;
+    display: none;
+	text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+
+#email {
+color :red;
+text-decoration:underline;
+}
+	  </style>
+  
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">St. Joseph Orphanage</a>
+		</div>
+		<div>
+		  <ul class="nav navbar-nav">
+			<li class="active"><a href="#">Home</a></li>
+			<li><a href="#viewEvents">View Events</a></li>
+			<li><a href="#aboutUs">About us</a></li>
+			<li><a href="#contact">Contact Us</a></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Ways to Help<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+<!--                   <li class="kopie"><a href="#">Dropdown2</a></li> -->
+                    <li id="volunteer"><a href="#" rel="modal:open" data-toggle="modal" data-target="#myModal6">Volunteer</a></li>
+                    <li id="viewItems"><a href="#" rel="modal:open" data-toggle="modal" data-target="#myModal5">View Requirements</a></li>	
+
+				</ul>
+			</li>
+		  </ul>
+		</div>
+	  </div>
+	</nav>	
+
+	<div class="container">
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+			<ol class="carousel-indicators">
+			  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			  <li data-target="#myCarousel" data-slide-to="1"></li>
+			  <li data-target="#myCarousel" data-slide-to="2"></li>
+			  <li data-target="#myCarousel" data-slide-to="3"></li>
+			</ol>
+
+		<!-- Wrapper for slides -->
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					<img src="image1.jpg" alt="Chania" width="460" height="345">
+				</div>
+
+				<div class="item">
+					<img src="image2.jpg" alt="Chania" width="460" height="345">
+				</div>
+		
+				<div class="item">
+					<img src="image3.jpg" alt="Flower" width="460" height="345">
+				</div>
+
+				<div class="item">
+					<img src="image4.jpg" alt="Flower" width="460" height="345">
+				</div>
+			</div>
+
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+			  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			  <span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+			  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			  <span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+
+    <!-- Page Content -->
+    <div class="container">
+	        <!-- About us -->
+		<section id="aboutUs">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">About Us</h2>
+            </div>
+           <div class="col-md-6">
+				<div class="scroll">
+					<p>Orphan's Lifeline was founded as Lifeline of Hope, a Montana Non-Profit Corporation under the direction of a Christian Board in March of 2000.</p>
+
+					<p>During the ninties, Co-Founders Jim and Elma Miller were on a mission to Far East Russia. There, along with working to establish and support the Church of Christ congregations in the area, they also began helping to establish the adoption process at the request of a Seattle Adoption Agency.</p>
+
+					<p>During this time, they visited numerous orphanges in the Khabarovsk Region and witnessed the heart-breaking conditions that the children had to live in. </p>
+
+					<p>Co-Founders Greg and Laurie Timmons adopted a young girl from the area with the assistance of Jim and Elma and they too were touched by what they saw.</p>
+
+					<p>Co-Founders Dave and Alaina Board, long time friends of the Millers and grandparents to the Timmons' newly adopted daughter had been hearing of the conditions in the orphanages for quite a long time and upon the competion of the adoption and the return of the Millers to the U.S.A., joined with Jim and Elma, Greg and Laurie to make plans for the establishment of Lifeline of Hope.</p>
+
+					<p>Lifeline of Hope had humble beginnings in an RV barn in Kalispell, MT, with just a few donors from the Church of Christ. They immediately began helping orphan children in the Khabarovsk area on a small scale.</p>
+
+					<p>As the number of donors grew, so did the number of children being cared for in Russia. An internet presence began to generate requests for help from several other countries and investigation lead to discovery of a magnitude of need nearly beyond belief. Lifeline of Hope expanded, first into India, then Africa, the Philippines, Pakistan and Mexico and Guatemala with some help going to Kyrgyztan and Ukraine as well.</p>
+
+					<p>Along the way, Lifeline of Hope moved into their current offices in Kalispell, MT, where they have continued to grow, both in the number of orphan children they care for and the scope of that care. </p>
+
+					<p>In 2009, Lifeline of Hope, still under the direction of the same Board and corporate leadership, chose to do business as Orphan's Lifeline of Hope, a mini re-brand that provides a more accurate reflection of the organizations mission...and its clients, the innocent orphan children of the world.</p>
+				</div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i>Staff</h4>
+                    </div>
+                    <div class="panel-body">
+						<img class="img-responsive" src="staff.png" alt="" height="400px"></br>
+                        <p><strong>David Board</strong> <i>- President and CEO</i></p>
+						<p><strong>Jeff Timmons</strong> <i>- Orphan Aid Director</i></p>
+						<p><strong>David Board</strong> <i>- Chairman</i></p>
+						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal4">View Details</button> 
+
+						
+						<!-- Modal 6-->
+						  <div class="modal fade" id="myModal6" role="dialog">
+							<div class="modal-dialog">
+							
+							  <!-- Modal content-->
+							  <div class="modal-content">
+								<div class="modal-header" style="padding:35px 50px;">
+								  <button type="button" class="close" data-dismiss="modal">&times;</button>
+								  <h4> Enter your details for Volunteering</h4>
+								  <p>Our staff will email or message you the details about volunteering opportunities</p>
+								</div>
+								<div class="modal-body" style="padding:40px 50px;">
+								  <form role="form">
+									<div class="form-group">
+									  <label for="usrname">Full Name :</label>
+									  <input type="text" class="form-control" id="usrname" placeholder="Enter your name" data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters.">
+									</div>
+									<div class="form-group">
+									  <label for="contactno"><span class="glyphicon glyphicon-phone"></span>Contact Number :</label>
+									  <input type="text" class="form-control phone" id="contactno" placeholder="999-999-9999" data-placement="top" data-trigger="manual" data-content="Must be a valid phone number (999-999-9999)">
+									</div>
+									<div class="form-group">
+									  <label for="email"><span class="glyphicon glyphicon-envelope"></span>Email Id :</label>
+									  <input type="text" class="form-control email" id="email" placeholder="email@you.com" data-placement="top" data-trigger="manual" data-content="Must be a valid e-mail address (user@gmail.com)">
+									</div>
+									<button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span>Submit</button>
+								  </form>
+								</div>
+								<div class="modal-footer">
+								  <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+								</div>
+							  </div>
+							  
+							</div>
+						  </div>						
+						
+						<!-- Modal 5-->
+						 <div class="modal fade" id="myModal5" role="dialog">
+							<div class="modal-dialog">
+							
+							  <!-- Modal content-->
+							  <div class="modal-content">
+								<div class="modal-header">
+								  <button type="button" class="close" data-dismiss="modal">&times;</button>
+								  <h4 class="modal-title">Orphanage Requirements</h4>
+								</div>
+								<div class="modal-body">
+									<p><strong>Notebooks</strong></p>
+									<p><strong>School Bagpacks</strong></p>
+									<p><strong>Pens</strong></p>
+									<p><strong>Color Pencils</strong></p>
+									<p><strong>Toys</strong></p>
+									<p><strong>Shoes</strong></p>
+									<p><strong>Clothes</strong></p>
+									<p><strong>Craft appliances</strong></p>
+									<p><strong>Sports equipments</strong></p>									
+									<p><strong>Umbrellas</strong></p>
+									<p><strong>Raincoats</strong></p>
+									<p><strong>Jackets</strong></p>
+									<p><strong>Caps</strong></p>
+									 
+								</div>
+								<div class="modal-footer">
+								  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							  </div>
+							  
+							</div>
+						</div>
+						
+						<!-- Modal 4-->
+						 <div class="modal fade" id="myModal4" role="dialog">
+							<div class="modal-dialog">
+							
+							  <!-- Modal content-->
+							  <div class="modal-content">
+								<div class="modal-header">
+								  <button type="button" class="close" data-dismiss="modal">&times;</button>
+								  <h4 class="modal-title">Our Staff</h4>
+								</div>
+								<div class="modal-body">
+									<p><strong>David Board</strong> <i>- President and CEO</i></p>
+									<p><strong>Jeff Timmons</strong> <i>- Orphan Aid Director</i></p>
+									<p><strong>David Board</strong> <i>- Chairman</i></p>
+									<p><strong>Alaina Board</strong> <i>- Volunteer Coordinator</i></p>
+									<p><strong>Carla Timmons</strong> <i>- Orphan Aid Assistant</i></p>
+									<p><strong>Faith Adams</strong> <i>- Donor Relations</i></p>
+									<p><strong>Larry Bertram</strong> <i>- Education and Advocacy Representative</i></p>
+									<p><strong>Tim Murphy</strong> <i>- Education and Advocacy Coordinator</i></p>						
+									 
+								</div>
+								<div class="modal-footer">
+								  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							  </div>
+							  
+							</div>
+						</div>
+						
+						
+                      <!--  <a href="#" class="btn btn-default">Learn More</a> -->
+                    </div>
+                </div>                
+            </div>
+        </div>
+		</section>
+        <!-- /.row -->
+	
+        <!-- events section -->
+		<section id="viewEvents">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Entertainment events for orphans
+                </h1>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i>Trans-Siberian Orchestra 2015</h4>
+                    </div>
+                    <div class="panel-body">
+						<img src="main_img1.jpg" alt="Show" width="325px"></br></br>
+                        <p>Trans-Siberian Orchestra put on an amazing show this year that not only left audiences in awe, but raised money for the children of SJO! We would like to extend a huge thank you to the band & amazing fans for their generous donation of more than $10,200!</p>
+                       <!-- <a href="#" class="btn btn-default">Learn More</a> -->
+						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Learn More</button>
+						
+						<!-- Modal -->
+						 <div class="modal fade" id="myModal" role="dialog">
+							<div class="modal-dialog">
+							
+							  <!-- Modal content-->
+							  <div class="modal-content">
+								<div class="modal-header">
+								  <button type="button" class="close" data-dismiss="modal">&times;</button>
+								  <h4 class="modal-title">Trans-Siberian Orchestra 2015</h4>
+								</div>
+								<div class="modal-body">
+								<pre>Trans-Siberian Orchestra (TSO) is an American progressive rock band founded in 1996 by producer, composer, and lyricist Paul O'Neill, who brought together Jon Oliva and Al Pitrelli (both members of Savatage) and keyboardist and co-producer Robert Kinkel to form the core of the creative team. The band gained in popularity when they began touring in 1999 after completing their second album, The Christmas Attic the year previous. In 2007, the Washington Post referred to them as "an arena-rock juggernaut" and described their music as "Pink Floyd meets Yes and The Who at Radio City Music Hall."[4] TSO has sold more than 10 million concert tickets and over 10 million albums.[5][6] The band has released a series of rock operas: Christmas Eve and Other Stories, The Christmas Attic, Beethoven's Last Night, The Lost Christmas Eve , their two-disc Night Castle and Letters From the Labyrinth. Trans-Siberian Orchestra is also known for their extensive charity work and elaborate concerts, which include a string section, a light show, lasers, "enough pyro to be seen from the international space station",[7] moving trusses, video screens, and effects synchronized to music.[8] Both Billboard Magazine and Pollstar have ranked them as one of the top ten ticket-selling bands in the first decade of the new millennium.[9][10] Their path to success was unusual in that TSO is the first major rock band to go straight to theaters and arenas, having never played at a club, never having an opening act and never being an opening act.[11] In 2013, TSO kicked off their European tour with a performance on New Year's Eve 2013-14 in front of over 1 million fans at Berlin's Brandenburg Gate. "A daring feat in which the band played three shows across two continents in 27 hours."[12] The show was broadcast live to millions more on German television.[13]</pre>
+								<!--  <p>Some text in the modal.</p> -->
+								</div>
+								<div class="modal-footer">
+								  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							  </div>
+							  
+							</div>
+						</div>
+						
+						
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i>Q102 Christmas Party – Tons of Fun!</h4>
+                    </div>
+                    <div class="panel-body">
+						<iframe width="325px" height="215px" src="https://www.youtube.com/embed/I6-WPU53Szw" frameborder="0" allowfullscreen></iframe></br></br>
+						<!-- <img src="main_img2.jpg" alt="function" width="325px" height="215px"></br></br> -->
+                        <p>The kids had a blast laughing at Madcap Puppets, singing along with the talented Lasalle students, meeting Star Wars characters, Frosty the Snowman and Santa himself! Thanks Q102 (WKRQ) and Q102’s Backstage with Brian Douglas! Check out the fun here!</p>
+                        <!-- <a href="#" class="btn btn-default">Learn More</a> -->
+						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Learn More</button>
+						
+						<!-- Modal -->
+						 <div class="modal fade" id="myModal2" role="dialog">
+							<div class="modal-dialog">
+							
+							  <!-- Modal content-->
+							  <div class="modal-content">
+								<div class="modal-header">
+								  <button type="button" class="close" data-dismiss="modal">&times;</button>
+								  <h4 class="modal-title">Q102 Christmas Party – Tons of Fun!</h4>
+								</div>
+								<div class="modal-body">
+									<p>1. Give HOPE through the “Gifts of Hope” Catalog: Users can browse our online catalog to learn about the most urgent needs in adoption aid, orphan care, and sponsorship. Gifts purchased can go toward fully or partially funding an adoption aid grant while other gifts can help provide everyday necessities to orphans who continue to wait for a forever family of their own. Click here to shop for gifts that transform the lives of orphans in very real and tangible ways.</p>
+									<p>2. Serve an Adoptive Family: For individuals looking for opportunities to support the needs of those outside their immediate family this year, consider finding ways to serve an adoptive family in your community! Offer to babysit for an evening or provide a meal. Get your children involved by inviting them to shop for toys or make cookies for the family! This is a great way to reinforce the true meaning of Christmas with your family. Also, take time to remember families in your community who are currently in the adoption process. Find couples who you can encourage this Christmas season as they await their little one!</p>
+									<p>3. Expand Your Worldview: Consider volunteering in ways that help children who are currently in foster care here in the U.S. or begin to make plans to take an international trip to serve in an orphanage. Both of these would offer a chance for you and your family to explore God’s heart for adoption and the role you could play in caring for orphans. Show Hope has several trips planned for 2014.</p>
+								</div>
+								<div class="modal-footer">
+								  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							  </div>
+							  
+							</div>
+						</div>
+
+						
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-compass"></i>Hope Run 2015</h4>
+                    </div>
+                    <div class="panel-body">
+						<img src="main_img3.jpg" alt="function" width="325px" height="215px"></br></br>
+                        <p>We had 89 runners and walkers, lots of volunteers and we raised just under $5,000!!! 100% of that will directly benefit orphans in the orphanages mentioned below. (Donations do not cover administrative or travel expenses of Portion for Orphans Directors or the cost of the Hope Run).</p>
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3">View photos</button>
+						
+						<!-- Modal -->
+						 <div class="modal fade" id="myModal3" role="dialog">
+							<div class="modal-dialog">
+							
+							  <!-- Modal content-->
+							  <div class="modal-content">
+								<div class="modal-header">
+								  <button type="button" class="close" data-dismiss="modal">&times;</button>
+								  <h4 class="modal-title">Hope Run 2015</h4>
+								</div>
+								<div class="modal-body">
+									<p>1. Give HOPE through the “Gifts of Hope” Catalog: Users can browse our online catalog to learn about the most urgent needs in adoption aid, orphan care, and sponsorship. Gifts purchased can go toward fully or partially funding an adoption aid grant while other gifts can help provide everyday necessities to orphans who continue to wait for a forever family of their own. Click here to shop for gifts that transform the lives of orphans in very real and tangible ways.</p>
+									<p>2. Serve an Adoptive Family: For individuals looking for opportunities to support the needs of those outside their immediate family this year, consider finding ways to serve an adoptive family in your community! Offer to babysit for an evening or provide a meal. Get your children involved by inviting them to shop for toys or make cookies for the family! This is a great way to reinforce the true meaning of Christmas with your family. Also, take time to remember families in your community who are currently in the adoption process. Find couples who you can encourage this Christmas season as they await their little one!</p>
+									<p>3. Expand Your Worldview: Consider volunteering in ways that help children who are currently in foster care here in the U.S. or begin to make plans to take an international trip to serve in an orphanage. Both of these would offer a chance for you and your family to explore God’s heart for adoption and the role you could play in caring for orphans. Show Hope has several trips planned for 2014.</p>
+								</div>
+								<div class="modal-footer">
+								  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							  </div>
+							  
+							</div>
+						</div>
+						
+						
+                    </div>
+                </div>
+            </div>
+        </div>
+		</section>
+        <!-- /.row -->
+
+		<!-- Search -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Search for Upcoming Events</h2>
+			</div>
+			
+			<div class="col-md-8">
+				<h4>Click on search button to know the venue for the latest events.</h4>
+			</div>
+			<div class ="col-md-4" class="search">
+				<input type="text" class="form-control input-sm" maxlength="64" placeholder="Search" onKeyUp="ajaxFunction(this.value)"/>
+				<div id="cityDiv"></div>
+				<button type="submit" class="btn btn-primary btn-sm" id="searchButtonTest">Search</button>
+			</div>            
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 id="hidden_val">Following are the venue details</h4>
+			</div>
+		</div>
+		
+        <!-- Features Section -->
+		<section id="contact">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Contact Us</h2>
+            </div>
+            <div class="col-md-6">
+                <h4>We would love to hear from anyone with a similar vision, with suggestions, or with a desire to help in any way.</h4></br>
+				<p><strong>St. Joseph Orphanage</strong></p>
+				<span>P.O. Box 458</span></br>
+				<span>Marshall, TX 79896</span></br>
+				<span>USA</span></br></br>
+				<span><strong>Phone no :</strong> 001-122-1256 / 223-566-9898</span></br></br>
+				<span><strong>email-id : </strong></span>
+				<span id="email"> stjoseph@orphancare.com</span>
+            </div>
+            <div class="col-md-6">
+                <img class="img-responsive" src="map_img.png" alt="" height="400px">
+            </div>
+        </div>
+		</section>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Call to Action Section -->
+        <div class="well">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, expedita, saepe, vero rerum deleniti beatae veniam harum neque nemo praesentium cum alias asperiores commodi.</p>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-lg btn-default btn-block" href="#">Call to Action</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->	
+		
+	
+	</div>
+
+</body>
